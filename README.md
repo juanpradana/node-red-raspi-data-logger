@@ -87,3 +87,63 @@ We will use zerotier for access raspi aplication from internet without vnc.
  
 ## Result for example data logger
 ![image](https://github.com/juanpradana/node-red-raspi-data-logger/assets/30497994/b30cd2ea-5da0-4719-bdbf-949a8ddd2218)
+
+## Why use TCP connection?
+### HTTP Connection Latency Test
+![WhatsApp Image 2023-07-03 at 09 26 20](https://github.com/juanpradana/node-red-raspi-data-logger/assets/30497994/38b8d45b-43ba-46ed-94da-1788ff47a2d9)
+| No | Latency |
+| -- | --- |
+| 1 | 64 ms |
+| 2 | 65 ms |
+| 3 | 68 ms |
+| 4 | 69 ms |
+| 5 | 72 ms |
+| 6 | 73 ms |
+| 7 | 74 ms |
+| 8 | 76 ms |
+| 9 | 77 ms |
+
+At 9 data Sended, latency ranges between 64 ms until 77 ms, with average of latency is 70.89 ms.
+
+### MQTT Connection Latecy test
+![WhatsApp Image 2023-07-03 at 09 26 21](https://github.com/juanpradana/node-red-raspi-data-logger/assets/30497994/3cf924b3-f860-41fc-977a-575454ec3969)
+
+| No | Sended | Delay Set | Latency |
+| --- | --- | --- | --- |
+| 1 | 11:01:52.691 | 100 ms | - |
+| 2 | 11:01:52.801 | 100 ms | 10 ms |
+| 3 | 11:01:52.908 | 100 ms | 7 ms |
+| 4 | 11:01:53.016 | 100 ms | 8 ms |
+| 5 | 11:01:53.126 | 100 ms | 10 ms |
+| 6 | 11:01:53.244 | 100 ms | 18 ms |
+| 7 | 11:01:53.345 | 100 ms | 1 ms |
+| 8 | 11:01:53.453 | 100 ms | 8 ms |
+| 9 | 11:01:53.561 | 100 ms | 8 ms |
+| 10 | 11:01:53.671 | 100 ms | 10 ms |
+
+At 10 data Sended, latency ranges between 1 ms until 18 ms, with average of latency is 8.89 ms.
+
+### TCP Connection Latecy test
+![WhatsApp Image 2023-07-03 at 09 27 16](https://github.com/juanpradana/node-red-raspi-data-logger/assets/30497994/459dcff7-6fc0-459f-8d45-75eb201bc469)
+
+| No | Sended | Delay Set | Latency |
+| --- | --- | --- | --- |
+| 1 | 02:25:23.952 | 0 ms | - |
+| 2 | 02:25:23.955 | 0 ms | 3 ms |
+| 3 | 02:25:23.956 | 0 ms | 1 ms |
+| 4 | 02:25:23.957 | 0 ms | 1 ms |
+| 5 | 02:25:23.958 | 0 ms | 1 ms |
+| 6 | 02:25:23.959 | 0 ms | 1 ms |
+| 7 | 02:25:23.960 | 0 ms | 1 ms |
+| 8 | 02:25:23.962 | 0 ms | 2 ms |
+| 9 | 02:25:23.963 | 0 ms | 1 ms |
+| 10 | 02:25:23.966 | 0 ms | 3 ms |
+
+At 10 data Sended, latency ranges between 1 ms until 3 ms, with average of latency is 1.56 ms.
+
+### Conclusion
+| Method | Latency Range | Average of Latency |
+| --- | --- | --- |
+| HTTP | 64 ms - 77 ms | 70.89 ms |
+| MQTT | 1 ms - 18 ms | 8.89 ms |
+| TCP | 1 ms - 3 ms | 1.56 ms |
