@@ -81,7 +81,7 @@ We will use zerotier for access raspi aplication from internet without vnc.
   - ```sudo ufw allow 22``` for SSH and SFTP
   - ```sudo ufw allow 2001``` for eddy cov1
   - ```sudo ufw allow 2002``` for eddy cov2
-  - ```sudo ufw allow```
+  - ```sudo ufw enable```
   - When get a warning ```Command may disrupt existing ssh connections. Proceed with operation (y|n)?``` choose __y__
   - ```sudo ufw status``` to check UFW status
  
