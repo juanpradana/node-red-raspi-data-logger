@@ -1,0 +1,84 @@
+[
+    {
+        "id": "d9dbc1a81d31365c",
+        "type": "function",
+        "z": "2f395d57e8e37211",
+        "name": "eddy1 remove data more than 14 days",
+        "func": "const folderPath = '/home/pi/Desktop/data/test_eddy1'; // Path of parent folder\nconst daysThreshold = 14; // days threshold\n\n/**\n* @param {any} folderPath\n* @param {number} daysThreshold\n*/\nfunction deleteFilesOlderThan(folderPath, daysThreshold) {\n    const files = fs.readdirSync(folderPath);\n\n    for (const file of files) {\n        const filePath = path.join(folderPath, file);\n        const stats = fs.statSync(filePath);\n        const modifiedTime = stats.mtime;\n        const currentDate = new Date();\n        // @ts-ignore\n        const diffTime = Math.abs(currentDate - modifiedTime);\n        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));\n\n        if (diffDays > daysThreshold) {\n            fs.unlinkSync(filePath);\n            console.log(`File ${filePath} dihapus karena lebih dari ${daysThreshold} hari.`);\n        }\n    }\n}\n\n// Recursive function to check each folder in the parent folder\n/**\n* @param {string} folderPath\n* @param {number} daysThreshold\n*/\nfunction checkFolders(folderPath, daysThreshold) {\n    const folders = fs.readdirSync(folderPath);\n\n    for (const folder of folders) {\n        const folderPathname = path.join(folderPath, folder);\n        const stats = fs.statSync(folderPathname);\n\n        if (stats.isDirectory()) {\n            deleteFilesOlderThan(folderPathname, daysThreshold);\n            checkFolders(folderPathname, daysThreshold);\n        }\n    }\n}\n\n// run program\ncheckFolders(folderPath, daysThreshold);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "fs",
+                "module": "fs"
+            },
+            {
+                "var": "path",
+                "module": "path"
+            }
+        ],
+        "x": 530,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b9d323e5e8100ce2",
+        "type": "inject",
+        "z": "2f395d57e8e37211",
+        "name": "00:00",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 00 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "d9dbc1a81d31365c",
+                "af54b9b6c52e4191"
+            ]
+        ]
+    },
+    {
+        "id": "af54b9b6c52e4191",
+        "type": "function",
+        "z": "2f395d57e8e37211",
+        "name": "eddy2 remove data more than 14 days",
+        "func": "const folderPath = '/home/pi/Desktop/data/test_eddy2'; // Path of parent folder\nconst daysThreshold = 14; // days threshold\n\n/**\n* @param {any} folderPath\n* @param {number} daysThreshold\n*/\nfunction deleteFilesOlderThan(folderPath, daysThreshold) {\n    const files = fs.readdirSync(folderPath);\n\n    for (const file of files) {\n        const filePath = path.join(folderPath, file);\n        const stats = fs.statSync(filePath);\n        const modifiedTime = stats.mtime;\n        const currentDate = new Date();\n        // @ts-ignore\n        const diffTime = Math.abs(currentDate - modifiedTime);\n        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));\n\n        if (diffDays > daysThreshold) {\n            fs.unlinkSync(filePath);\n            console.log(`File ${filePath} dihapus karena lebih dari ${daysThreshold} hari.`);\n        }\n    }\n}\n\n// Recursive function to check each folder in the parent folder\n/**\n* @param {string} folderPath\n* @param {number} daysThreshold\n*/\nfunction checkFolders(folderPath, daysThreshold) {\n    const folders = fs.readdirSync(folderPath);\n\n    for (const folder of folders) {\n        const folderPathname = path.join(folderPath, folder);\n        const stats = fs.statSync(folderPathname);\n\n        if (stats.isDirectory()) {\n            deleteFilesOlderThan(folderPathname, daysThreshold);\n            checkFolders(folderPathname, daysThreshold);\n        }\n    }\n}\n\n// run program\ncheckFolders(folderPath, daysThreshold);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "fs",
+                "module": "fs"
+            },
+            {
+                "var": "path",
+                "module": "path"
+            }
+        ],
+        "x": 530,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    }
+]
